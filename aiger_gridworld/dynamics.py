@@ -1,6 +1,12 @@
 import aigerbv
 
 
+NORTH = 0
+EAST = 1
+SOUTH = 2
+WEST = 3
+
+
 def _gridworld1d(n, state_name='x', action='a', start=0):
     x = aigerbv.atom(n, state_name, signed=False)
     a = aigerbv.atom(n, action)
