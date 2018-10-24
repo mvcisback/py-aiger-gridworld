@@ -6,7 +6,7 @@ setup(
     name='py-aiger-gridworld',
     version='0.0.0',
     description=DESC,
-    url='http://github.com/mvcisback/py-aiger',
+    url='http://github.com/mvcisback/py-aiger-gridworld',
     author='Marcell Vazquez-Chanlatte',
     author_email='marcell.vc@eecs.berkeley.edu',
     license='MIT',
