@@ -1,6 +1,12 @@
 from aigerbv import atom, ite, split_gate
 
 
+NORTH = (0, 0, 0, 1)
+SOUTH = (0, 0, 1, 0)
+EAST = (0, 1, 0, 0)
+WEST = (1, 0, 0, 0)
+
+
 def chain(n, state_name='x', action='a', start=None, clip=True, can_stay=True):
     if start is None:
         start = 1 << (n // 2)
