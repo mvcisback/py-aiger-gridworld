@@ -1,6 +1,3 @@
-import aigerbv
-import funcy as fn
-
 from aiger_gridworld import dynamics
 
 
@@ -15,7 +12,7 @@ def test_move():
     assert move(dynamics.EAST) == ((0, 0, 0, 1, 0), (0, 0, 1, 0, 0))
     assert move(dynamics.SOUTH) == ((0, 0, 1, 0, 0), (0, 1, 0, 0, 0))
     assert move(dynamics.NORTH) == ((0, 0, 1, 0, 0), (0, 0, 0, 1, 0))
-    
+
     x, y = (1, 0, 0, 0, 0), (1, 0, 0, 0, 0)
     assert move(dynamics.WEST, 0b00001, 0b00001) == (x, y)
     assert move(dynamics.SOUTH, 0b00001, 0b00001) == (x, y)
