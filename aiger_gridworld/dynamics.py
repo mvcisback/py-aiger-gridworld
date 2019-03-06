@@ -1,13 +1,6 @@
 from aigerbv import atom, ite, split_gate
 
 
-
-NORTH = 0
-EAST = 1
-SOUTH = 2
-WEST = 3
-
-
 def chain(n, state_name='x', action='a', start=None, clip=True, can_stay=True):
     if start is None:
         start = 1 << (n // 2)
