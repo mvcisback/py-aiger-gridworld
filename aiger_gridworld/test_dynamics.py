@@ -3,6 +3,7 @@ from aiger_gridworld import dynamics
 
 def move(action, x=None, y=None):
     g = dynamics.gridworld(5, start=(x, y))
+
     pos, _ = g({'a': action})
     return pos['x'], pos['y']
 

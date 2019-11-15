@@ -1,4 +1,4 @@
-from aigerbv import atom, ite, split_gate
+from aiger_bv import atom, ite, split_gate, encode_int, lookup
 
 
 NORTH = (0, 0, 0, 1)
@@ -10,6 +10,8 @@ WEST = (1, 0, 0, 0)
 def chain(n, state_name='x', action='a', start=None, clip=True, can_stay=True):
     if start is None:
         start = 1 << (n // 2)
+    start = encode_int(n, start, signed=False)
+
     x = atom(n, state_name, signed=False)
     a = atom(2, action, signed=False)
 
@@ -33,6 +35,14 @@ def chain(n, state_name='x', action='a', start=None, clip=True, can_stay=True):
     )
 
 
-def gridworld(n, start=(None, None)):
+def gridworld(n, start=(None, None), compressed_inputs=False):
     circ = chain(n, 'x', 'ax', start[0]) | chain(n, 'y', 'ay', start[1])
-    return split_gate('a', 2, 'ax', 2, 'ay') >> circ
+    circ <<= split_gate('a', 2, 'ax', 2, 'ay')
+    if compressed_inputs:
+        mapping = {0b00: 0b0001, 0b01: 0b0010, 0b10: 0b0100, 0b11: 0b1000}
+        uncompress = lookup(
+            2, 4, mapping, 'a', 'a', in_signed=False, out_signed=False
+        )
+        circ <<= uncompress
+
+    return circ
