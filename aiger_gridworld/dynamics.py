@@ -6,11 +6,19 @@ SOUTH = (0, 0, 1, 0)
 EAST = (0, 1, 0, 0)
 WEST = (1, 0, 0, 0)
 
+NORTH_C = (0, 1)
+SOUTH_C = (1, 1)
+EAST_C = (1, 0)
+WEST_C = (0, 0)
+
 
 def chain(n, state_name='x', action='a', start=None, clip=True, can_stay=True):
     if start is None:
-        start = 1 << (n // 2)
-    start = encode_int(n, start, signed=False)
+        start = n // 2
+    else:
+        start -= 1
+
+    start = encode_int(n, 1 << start, signed=False)
 
     x = atom(n, state_name, signed=False)
     a = atom(2, action, signed=False)
