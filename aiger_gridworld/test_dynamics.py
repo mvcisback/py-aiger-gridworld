@@ -15,9 +15,9 @@ def test_move():
     assert move(dynamics.NORTH) == ((0, 0, 1, 0, 0), (0, 0, 0, 1, 0))
 
     x, y = (1, 0, 0, 0, 0), (1, 0, 0, 0, 0)
-    assert move(dynamics.WEST, 0b00001, 0b00001) == (x, y)
-    assert move(dynamics.SOUTH, 0b00001, 0b00001) == (x, y)
+    assert move(dynamics.WEST, 1, 1) == (x, y)
+    assert move(dynamics.SOUTH, 1, 1) == (x, y)
 
     x, y = (0, 0, 0, 0, 1), (0, 0, 0, 0, 1)
-    assert move(dynamics.EAST, 0b10000, 0b10000) == (x, y)
-    assert move(dynamics.NORTH, 0b10000, 0b10000) == (x, y)
+    assert move(dynamics.EAST, 5, 5) == (x, y)
+    assert move(dynamics.NORTH, 5, 5) == (x, y)
