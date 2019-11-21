@@ -1,0 +1,106 @@
+[[package]]
+category = "main"
+description = "Classes Without Boilerplate"
+name = "attrs"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+version = "19.3.0"
+
+[[package]]
+category = "main"
+description = "Efficient, Pythonic bidirectional map implementation and related functionality"
+name = "bidict"
+optional = false
+python-versions = "*"
+version = "0.18.3"
+
+[[package]]
+category = "main"
+description = "A fancy and practical functional tools"
+name = "funcy"
+optional = false
+python-versions = "*"
+version = "1.13"
+
+[[package]]
+category = "main"
+description = "(Soon to be) the fastest pure-Python PEG parser I could muster"
+name = "parsimonious"
+optional = false
+python-versions = "*"
+version = "0.8.1"
+
+[package.dependencies]
+six = ">=1.9.0"
+
+[[package]]
+category = "main"
+description = "A python library for manipulating sequential and-inverter gates."
+name = "py-aiger"
+optional = false
+python-versions = ">=3.6,<4.0"
+version = "3.5.0"
+
+[package.dependencies]
+attrs = ">=19.3,<20.0"
+bidict = ">=0.18.0,<0.19.0"
+funcy = ">=1.12,<2.0"
+parsimonious = ">=0.8.1,<0.9.0"
+pyrsistent = ">=0.15.4,<0.16.0"
+toposort = ">=1.5,<2.0"
+
+[[package]]
+category = "main"
+description = "A python library for manipulating sequential and-inverter gates."
+name = "py-aiger-bv"
+optional = false
+python-versions = ">=3.6,<4.0"
+version = "1.2.1"
+
+[package.dependencies]
+attrs = ">=19.1,<20.0"
+funcy = ">=1.12,<2.0"
+py-aiger = ">=3.5,<4.0"
+pyrsistent = ">=0.15.4,<0.16.0"
+
+[[package]]
+category = "main"
+description = "Persistent/Functional/Immutable data structures"
+name = "pyrsistent"
+optional = false
+python-versions = "*"
+version = "0.15.5"
+
+[package.dependencies]
+six = "*"
+
+[[package]]
+category = "main"
+description = "Python 2 and 3 compatibility utilities"
+name = "six"
+optional = false
+python-versions = ">=2.6, !=3.0.*, !=3.1.*"
+version = "1.13.0"
+
+[[package]]
+category = "main"
+description = "Implements a topological sort algorithm."
+name = "toposort"
+optional = false
+python-versions = "*"
+version = "1.5"
+
+[metadata]
+content-hash = "86acc0809a54b019ed76e650a54cbb7bb36a5268cd3f3ffc69ace675a3d4902c"
+python-versions = "^3.6"
+
+[metadata.hashes]
+attrs = ["08a96c641c3a74e44eb59afb61a24f2cb9f4d7188748e76ba4bb5edfa3cb7d1c", "f7b7ce16570fe9965acd6d30101a28f62fb4a7f9e926b3bbc9b61f8b04247e72"]
+bidict = ["1742a25a9ef1b1ac4000683406879a3e1a6577faa02f31e482e6c84e2e3bf628", "621db384daef94b7031897ca479f4feed025989a64e91c6fae88fb88a842488c"]
+funcy = ["141950038e72bdc2d56fa82468586a1d1291b9cc9346daaaa322dffed1d1da6e", "918f333f675d9841ec7d77b9f0d5a272ed290393a33c8ef20e605847de89b1c3"]
+parsimonious = ["3add338892d580e0cb3b1a39e4a1b427ff9f687858fdd61097053742391a9f6b"]
+py-aiger = ["cdeb57410177d360e305ab4a444c010bdc9f9ed7202f244d66214e0cb214e272", "f0263316997d24e90b8e0b368b6bbea22f917d4c44275e1bfecd7974f394e40f"]
+py-aiger-bv = ["16c960e8f97ba088e6d48c60c0a7837418b69ca35e4e82e1e830f9fb9e657d97", "c7f73cf058edfda02cfd773186ad07d4cf2a601ca9f510c72e2b594ea9c75277"]
+pyrsistent = ["eb6545dbeb1aa69ab1fb4809bfbf5a8705e44d92ef8fc7c2361682a47c46c778"]
+six = ["1f1b7d42e254082a9db6279deae68afb421ceba6158efa6131de7b3003ee93fd", "30f610279e8b2578cab6db20741130331735c781b56053c59c4076da27f06b66"]
+toposort = ["d80128b83b411d503b0cdb4a8f172998bc1d3b434b6402a349b8ebd734d51a80", "dba5ae845296e3bf37b042c640870ffebcdeb8cd4df45adaa01d8c5476c557dd"]
