@@ -10,9 +10,9 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6"
-py-aiger = "^3.5.0"
-py-aiger-bv = "^1.2"
+python = "^3.7"
+py-aiger = "^6.0.0"
+py-aiger-bv = "^4.0.0"
 funcy = "^1.13"
 
 [tool.poetry.dev-dependencies]
