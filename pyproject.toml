@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "py-aiger-gridworld"
-version = "0.2.0"
+version = "0.3.0"
 readme="README.md"
 description = "Library for modeling gridworlds as AIGER circuits."
 authors = ["Marcell Vazquez-Chanlatte <mvc@linux.com>"]
