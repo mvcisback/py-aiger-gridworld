@@ -29,12 +29,13 @@ class GridState:
         for col in range(1, self.dim + 1):
             yield ('▪' if y == row and x == col else '□')
 
+    @property
     def board(self):
         buff = '\n'
         for row in range(self.dim, 0, -1):
-            buff += ' '.join(self._row(row))
-            buff += f' {row}\n'
-        buff += ' '.join(map(str, range(1, self.dim + 1))) + '\n'
+            buff += f'{row} '
+            buff += ' '.join(self._row(row)) + '\n'
+        buff += '  ' + ' '.join(map(str, range(1, self.dim + 1))) + '\n'
         return buff
 
 
