@@ -21,7 +21,7 @@ ACTIONS = bidict({
 })
 
 
-ACTIONS_C = bidict({'←': 0b00, '↑': 0b01, '→': 0b10, '↓': 0b11,})
+ACTIONS_C = bidict({'←': 0b00, '↑': 0b01, '→': 0b10, '↓': 0b11})
 COMPRESSION_MAPPING = {
     ACTIONS_C['→']: ACTIONS['→'],
     ACTIONS_C['←']: ACTIONS['←'],
@@ -61,12 +61,6 @@ def chain(n, state_name='x', action='a', start=None, clip=True, can_stay=True):
     )
 
 
-def is_1hot(x):
-    x = aiger_bv.SignedBVExpr(x.aigbv)
-    test = (x != 0) & ((x & (x - 1)) == 0)
-    return test.aigbv['o', {test.output: 'valid'}]
-
-
 def gridworld(n, start=(None, None), compressed_inputs=False):
     # Gridworld is 2 synchronized chains.
     circ = chain(n, 'x', 'ax', start[1]) | chain(n, 'y', 'ay', start[0])
@@ -77,7 +71,7 @@ def gridworld(n, start=(None, None), compressed_inputs=False):
 
     if compressed_inputs:
         uncompress = lookup(
-            2, 4, COMPRESSION_MAPPING, 'a', 'a', 
+            2, 4, COMPRESSION_MAPPING, 'a', 'a',
             in_signed=False, out_signed=False
         )
         circ <<= uncompress
@@ -93,9 +87,10 @@ def gridworld(n, start=(None, None), compressed_inputs=False):
         decode=lambda yx: G.GridState(yx, n),
     )
 
-    func = aiger_discrete.from_aigbv(circ,
-                                     input_encodings={'a': action_encoding},
-                                     output_encodings={'state': state_encoding},
+    func = aiger_discrete.from_aigbv(
+        circ,
+        input_encodings={'a': action_encoding},
+        output_encodings={'state': state_encoding},
     )
     if not compressed_inputs:
         action = BV.uatom(4, 'a')
