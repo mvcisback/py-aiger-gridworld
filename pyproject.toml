@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "py-aiger-gridworld"
-version = "0.3.0"
+version = "0.4.0"
 readme="README.md"
 description = "Library for modeling gridworlds as AIGER circuits."
 authors = ["Marcell Vazquez-Chanlatte <mvc@linux.com>"]
@@ -14,6 +14,8 @@ python = "^3.7"
 funcy = "^1.13"
 py-aiger = "^6.0.0"
 py-aiger-bv = "^4.0.0"
+py-aiger-discrete = "^0.1.6"
+bidict = "^0.21.2"
 
 [tool.poetry.dev-dependencies]
 pytest-cov = "^2.7"

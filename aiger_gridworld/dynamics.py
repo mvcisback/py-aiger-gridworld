@@ -1,15 +1,33 @@
+import aiger_bv as BV
+import aiger_discrete
 from aiger_bv import atom, ite, split_gate, encode_int, lookup
+from bidict import bidict
+
+import aiger_gridworld as G
 
 
-NORTH = (0, 0, 0, 1)
-SOUTH = (0, 0, 1, 0)
-EAST = (0, 1, 0, 0)
-WEST = (1, 0, 0, 0)
+NORTH = '↑'
+SOUTH = '↓'
+EAST = '→'
+WEST = '←'
 
-NORTH_C = (0, 1)
-SOUTH_C = (1, 1)
-EAST_C = (1, 0)
-WEST_C = (0, 0)
+
+ACTIONS = bidict({
+    #      y   x
+    '←': 0b00_01,
+    '→': 0b00_10,
+    '↓': 0b01_00,
+    '↑': 0b10_00,
+})
+
+
+ACTIONS_C = bidict({'←': 0b00, '↑': 0b01, '→': 0b10, '↓': 0b11,})
+COMPRESSION_MAPPING = {
+    ACTIONS_C['→']: ACTIONS['→'],
+    ACTIONS_C['←']: ACTIONS['←'],
+    ACTIONS_C['↑']: ACTIONS['↑'],
+    ACTIONS_C['↓']: ACTIONS['↓'],
+}
 
 
 def chain(n, state_name='x', action='a', start=None, clip=True, can_stay=True):
@@ -43,14 +61,47 @@ def chain(n, state_name='x', action='a', start=None, clip=True, can_stay=True):
     )
 
 
+def is_1hot(x):
+    x = aiger_bv.SignedBVExpr(x.aigbv)
+    test = (x != 0) & ((x & (x - 1)) == 0)
+    return test.aigbv['o', {test.output: 'valid'}]
+
+
 def gridworld(n, start=(None, None), compressed_inputs=False):
-    circ = chain(n, 'x', 'ax', start[0]) | chain(n, 'y', 'ay', start[1])
-    circ <<= split_gate('a', 2, 'ax', 2, 'ay')
+    # Gridworld is 2 synchronized chains.
+    circ = chain(n, 'x', 'ax', start[1]) | chain(n, 'y', 'ay', start[0])
+    circ <<= split_gate('a', 2, 'ay', 2, 'ax')       # Combine inputs.
+    x = BV.uatom(circ.omap['x'].size, 'x')
+    y = BV.uatom(circ.omap['y'].size, 'y')
+    circ >>= y.concat(x).with_output('state').aigbv  # Combine outputs.
+
     if compressed_inputs:
-        mapping = {0b00: 0b0001, 0b01: 0b0010, 0b10: 0b0100, 0b11: 0b1000}
         uncompress = lookup(
-            2, 4, mapping, 'a', 'a', in_signed=False, out_signed=False
+            2, 4, COMPRESSION_MAPPING, 'a', 'a', 
+            in_signed=False, out_signed=False
         )
         circ <<= uncompress
 
-    return circ
+    # Wrap using aiger discrete add encoding + valid inputs.
+    actions_map = ACTIONS_C if compressed_inputs else ACTIONS
+    action_encoding = aiger_discrete.Encoding(
+        encode=actions_map.get,
+        decode=actions_map.inv.get,
+    )
+    state_encoding = aiger_discrete.Encoding(
+        encode=lambda s: s.yx,
+        decode=lambda yx: G.GridState(yx, n),
+    )
+
+    func = aiger_discrete.from_aigbv(circ,
+                                     input_encodings={'a': action_encoding},
+                                     output_encodings={'state': state_encoding},
+    )
+    if not compressed_inputs:
+        action = BV.uatom(4, 'a')
+        is_1hot = (action != 0) & ((action & (action - 1)) == 0)
+        func = func.assume(is_1hot)
+    return func
+
+
+__all__ = ['NORTH', 'SOUTH', 'EAST', 'WEST', 'gridworld', 'chain']

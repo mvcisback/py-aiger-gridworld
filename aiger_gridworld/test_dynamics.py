@@ -5,19 +5,30 @@ def move(action, x=None, y=None):
     g = dynamics.gridworld(5, start=(x, y))
 
     pos, _ = g({'a': action})
-    return pos['x'], pos['y']
+    return pos['state']
+
+
+def board_test(state, x, y):
+    assert state.x == x
+    assert state.y == y
 
 
 def test_move():
-    assert move(dynamics.WEST) == ((0, 1, 0, 0, 0), (0, 0, 1, 0, 0))
-    assert move(dynamics.EAST) == ((0, 0, 0, 1, 0), (0, 0, 1, 0, 0))
-    assert move(dynamics.SOUTH) == ((0, 0, 1, 0, 0), (0, 1, 0, 0, 0))
-    assert move(dynamics.NORTH) == ((0, 0, 1, 0, 0), (0, 0, 0, 1, 0))
+    board_test(move('←'), 2, 3)
+    board_test(move('→'), 4, 3)
+    board_test(move('↑'), 3, 4)
+    board_test(move('↓'), 3, 2)
 
-    x, y = (1, 0, 0, 0, 0), (1, 0, 0, 0, 0)
-    assert move(dynamics.WEST, 1, 1) == (x, y)
-    assert move(dynamics.SOUTH, 1, 1) == (x, y)
+    # TEST clipping.
 
-    x, y = (0, 0, 0, 0, 1), (0, 0, 0, 0, 1)
-    assert move(dynamics.EAST, 5, 5) == (x, y)
-    assert move(dynamics.NORTH, 5, 5) == (x, y)
+    board_test(move('←', 2, 2), 1, 2)
+    board_test(move('←', 1, 2), 1, 2)
+
+    board_test(move('↓', 2, 2), 2, 1)
+    board_test(move('↓', 2, 1), 2, 1)
+
+    board_test(move('→', 4, 4), 5, 4)
+    board_test(move('→', 5, 4), 5, 4)
+
+    board_test(move('↑', 4, 4), 4, 5)
+    board_test(move('↑', 4, 5), 4, 5)
