@@ -14,13 +14,12 @@ python = "^3.9"
 funcy = "^1.13"
 py-aiger = "^6.0.0"
 py-aiger-bv = "^4.0.0"
-py-aiger-discrete = "^0.1.6"
-bidict = "^0.21.2"
+py-aiger-discrete = "^0.1.10"
+bidict = "^0.22"
 
 [tool.poetry.dev-dependencies]
-pytest-cov = "^2.7"
-pytest-flake8 = "^1.0"
-pytest-xdist = "^1.29"
+pytest-xdist = "^3"
+parsimonious = "^0.10.0"
 
 [build-system]
 requires = ["poetry>=0.12"]

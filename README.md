@@ -3,7 +3,6 @@
 Library for modeling gridworlds as AIGER circuits.
 
 [![Build Status](https://cloud.drone.io/api/badges/mvcisback/py-aiger-gridworld/status.svg)](https://cloud.drone.io/mvcisback/py-aiger-gridworld)
-[![codecov](https://codecov.io/gh/mvcisback/py-aiger-gridworld/branch/master/graph/badge.svg)](https://codecov.io/gh/mvcisback/py-aiger-gridworld)
 [![PyPI version](https://badge.fury.io/py/py-aiger-gridworld.svg)](https://badge.fury.io/py/py-aiger-gridworld)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 

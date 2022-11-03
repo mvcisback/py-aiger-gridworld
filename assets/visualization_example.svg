@@ -13,7 +13,7 @@
     }
 
     .agent {
-      r: 10%;
+      r: 1em;
       fill: black;
       stroke-width: 2;
       stroke: grey;
